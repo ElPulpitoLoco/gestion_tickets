@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tableau de bord administrateur{% endblock %}
+
+{% block body %}
+<h1>Bienvenue sur le tableau de bord administrateur</h1>
+<ul>
+    <li><a href="{{ path('categorie_index') }}">Gérer les catégories</a></li>
+    <li><a href="{{ path('statut_index') }}">Gérer les statuts</a></li>
+    <li><a href="{{ path('responsable_index') }}">Gérer les responsables</a></li>
+    <li><a href="{{ path('ticket_index') }}">Gérer les tickets</a></li>
+</ul>
+{% endblock %}

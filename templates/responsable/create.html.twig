@@ -1,0 +1,14 @@
+{# templates/responsable/create.html.twig #}
+{% extends 'admin/dashboard.html.twig' %}
+
+{% block title %}Créer un nouveau responsable{% endblock %}
+
+{% block body %}
+<h1>Créer un nouveau responsable</h1>
+
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button class="btn btn-primary">Enregistrer</button>
+{{ form_end(form) }}
+<a href="{{ path('responsable_index') }}">Retour à la liste</a>
+{% endblock %}

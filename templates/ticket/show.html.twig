@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails du ticket{% endblock %}
+
+{% block body %}
+<h1>Détails du ticket #{{ ticket.id }}</h1>
+
+<table class="table">
+    <tr>
+        <th scope="col">Email</th>
+        <td>{{ ticket.email }}</td>
+    </tr>
+    <tr>
+        <th scope="col">Catégorie</th>
+        <td>{{ ticket.categorie.nom }}</td>
+    </tr>
+    <tr>
+        <th scope="col">Description</th>
+        <td>{{ ticket.description }}</td>
+    </tr>
+    <tr>
+        <th scope="col">Statut</th>
+        <td>{{ ticket.statut }}</td>
+    </tr>
+    <tr>
+        <th scope="col">Date d'ouverture</th>
+        <td>{{ ticket.dateOuverture|date('d/m/Y H:i') }}</td>
+    </tr>
+    <tr>
+        <th scope="col">Date de clôture</th>
+        <td>{{ ticket.dateCloture ? ticket.dateCloture|date('d/m/Y H:i') : 'Non clôturé' }}</td>
+    </tr>
+</table>
+
+<a href="{{ path('ticket_edit', {'id': ticket.id}) }}" class="btn btn-warning">Modifier</a>
+<a href="{{ path('ticket_delete', {'id': ticket.id}) }}" class="btn btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce ticket ?')">Supprimer</a>
+
+{% endblock %}

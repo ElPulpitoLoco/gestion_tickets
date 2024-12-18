@@ -1,0 +1,14 @@
+{% extends 'admin/dashboard.html.twig' %}
+
+{% block title %}Modifier un responsable{% endblock %}
+
+{% block body %}
+<h1>Modifier le responsable : {{ responsable.nom }}</h1>
+
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button class="btn btn-primary">Mettre à jour</button>
+{{ form_end(form) }}
+
+<a href="{{ path('responsable_index') }}" class="btn btn-secondary mt-3">Retour à la liste</a>
+{% endblock %}

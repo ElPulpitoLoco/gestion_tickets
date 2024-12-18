@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil - Gestion des Tickets{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+
+    {% for type, messages in app.flashes %}
+    {% for message in messages %}
+    <div class="alert alert-{{ type }}">
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% endfor %}
+
+
+    <h1 class="text-center">Bienvenue sur le système de gestion des tickets</h1>
+    <p class="text-center">Veuillez saisir un ticket ou vous connecter pour suivre vos demandes.</p>
+
+    <div class="text-center mt-4">
+        <a href="{{ path('login') }}" class="btn btn-primary me-3">Connexion</a>
+        <a href="{{ path('ticket_new') }}" class="btn btn-success">Saisir un Ticket</a>
+    </div>
+</div>
+{% endblock %}

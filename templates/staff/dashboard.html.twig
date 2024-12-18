@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Tableau de bord staff{% endblock %}
+
+{% block body %}
+<h1>Bienvenue sur le tableau de bord staff</h1>
+<ul>
+    <li><a href="{{ path('statut_index') }}">Gérer les statuts</a></li>
+    <li><a href="{{ path('ticket_index') }}">Gérer les tickets</a></li>
+</ul>
+{% endblock %}

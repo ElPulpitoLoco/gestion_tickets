@@ -1,0 +1,61 @@
+homepage:
+    path: /
+    controller: App\Controller\HomeController::index
+
+
+controllers:
+    resource:
+        path: ../src/Controller/
+        namespace: App\Controller
+    type: attribute
+
+security_login:
+    path: /security/login
+    controller: App\Controller\SecurityController::login
+    methods: [GET, POST]
+    
+
+admin_dashboard:
+    path: /admin/dashboard
+    controller: App\Controller\AdminController::dashboard
+
+
+staff_dashboard:
+    path: /staff/dashboard
+    controller: App\Controller\StaffController::dashboard
+    methods: GET 
+    
+    
+categorie_index:
+    path: /categories
+    controller: App\Controller\CategorieController::index
+
+statut_index:
+    path: /statuts
+    controller: App\Controller\StatutController::index
+
+
+
+
+responsable_index:
+    path: /responsables
+    controller: App\Controller\ResponsableController::index
+
+responsable_create:
+    path: /admin/responsable/create
+    controller: App\Controller\ResponsableController::create
+
+responsable_edit:
+    path: /admin/responsable/edit/{id}
+    controller: App\Controller\ResponsableController::edit
+    requirements:
+        id: \d+
+
+responsable_delete:
+    path: /admin/responsable/delete/{id}
+    controller: App\Controller\ResponsableController::delete
+    methods: [POST]
+
+
+
+
