@@ -12,59 +12,56 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ResponsableController extends AbstractController
 {
-    public function index(ResponsableRepository $responsableRepository): Response
+    public function index(ResponsableRepository $responsableRepository): Response //affiche liste responsables
     {
-        $responsables = $responsableRepository->findAll();
+        $responsables = $responsableRepository->findAll(); //recup tous les resp depuis la BDD
 
         return $this->render('responsable/index.html.twig', [
-            'responsables' => $responsables,
+            'responsables' => $responsables, //retourne la vue avec liste responsables
         ]);
     }
 
-    public function create(Request $request, EntityManagerInterface $entityManager): Response
+    public function create(Request $request, EntityManagerInterface $entityManager): Response //fct création nouveau resp
     {
-        $responsable = new Responsable();
-        $form = $this->createForm(ResponsableType::class, $responsable);
+        $responsable = new Responsable(); //nouvelle instance de resp
+        $form = $this->createForm(ResponsableType::class, $responsable); //crée un form
 
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
+        $form->handleRequest($request); //gere les data avec la requete
+        if ($form->isSubmitted() && $form->isValid()) { //si form soumis et valide
             $entityManager->persist($responsable);
-            $entityManager->flush();
+            $entityManager->flush(); //dans la BDD
 
-            return $this->redirectToRoute('responsable_index');
+            return $this->redirectToRoute('responsable_index'); //redirige apres crea
         }
 
         return $this->render('responsable/create.html.twig', [
-            'form' => $form->createView(),
+            'form' => $form->createView(), //retourne vue avec form crea
         ]);
     }
 
     /**
      * @Route("/admin/responsable/{id}/edit", name="responsable_edit", methods={"GET", "POST"})
      */
-    public function edit(int $id, Request $request, EntityManagerInterface $entityManager): Response
+    public function edit(int $id, Request $request, EntityManagerInterface $entityManager): Response //modif un responsable
     {
-        // Récupérer le responsable à modifier
+        //recup le responsable à modif
         $responsable = $entityManager->getRepository(Responsable::class)->find($id);
 
-        if (!$responsable) {
+        if (!$responsable) { //si le resp n'existe pas
             throw $this->createNotFoundException('Le responsable demandé n\'existe pas.');
         }
 
-        // Créer le formulaire
-        $form = $this->createForm(ResponsableType::class, $responsable);
+        $form = $this->createForm(ResponsableType::class, $responsable);//créer le form
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
-
-            // Redirection après la mise à jour
+        if ($form->isSubmitted() && $form->isValid()) { //verif
+            $entityManager->flush(); //save dans la BDD
+            
             $this->addFlash('success', 'Responsable mis à jour avec succès.');
-            return $this->redirectToRoute('responsable_index');
+            return $this->redirectToRoute('responsable_index'); //redirection après update
         }
-
-        // Rendu du formulaire d'édition
-        return $this->render('responsable/edit.html.twig', [
+    
+        return $this->render('responsable/edit.html.twig', [ //rendu du form
             'form' => $form->createView(),
             'responsable' => $responsable,
         ]);
@@ -73,26 +70,25 @@ class ResponsableController extends AbstractController
     /**
      * @Route("/admin/responsable/{id}/delete", name="responsable_delete", methods={"POST"})
      */
-    public function delete(int $id, Request $request, EntityManagerInterface $entityManager): Response
+    public function delete(int $id, Request $request, EntityManagerInterface $entityManager): Response //suppr un resp
     {
-        // Récupérer le responsable
-        $responsable = $entityManager->getRepository(Responsable::class)->find($id);
+        $responsable = $entityManager->getRepository(Responsable::class)->find($id); //recup resp
 
-        if (!$responsable) {
+        if (!$responsable) { //si n'existe pas
             throw $this->createNotFoundException('Le responsable demandé n\'existe pas.');
         }
 
-        // Vérifier le token CSRF
+        //verif si token valide
         if ($this->isCsrfTokenValid('delete_responsable_' . $responsable->getId(), $request->request->get('_token'))) {
-            $entityManager->remove($responsable);
+            $entityManager->remove($responsable); //suppr le resp
             $entityManager->flush();
 
-            $this->addFlash('success', 'Le responsable a été supprimé avec succès.');
+            $this->addFlash('success', 'Le responsable a été supprimé avec succès.'); //message succes
         } else {
-            $this->addFlash('error', 'Action non autorisée.');
+            $this->addFlash('error', 'Action non autorisée.'); //mess refus
         }
 
-        return $this->redirectToRoute('responsable_index');
+        return $this->redirectToRoute('responsable_index'); //redirige vers liste resp
     }
 
 }

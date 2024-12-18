@@ -67,7 +67,7 @@ class Categorie
     public function removeTicket(Ticket $ticket): static
     {
         if ($this->tickets->removeElement($ticket)) {
-            // set the owning side to null (unless already changed)
+
             if ($ticket->getCategorie() === $this) {
                 $ticket->setCategorie(null);
             }

@@ -12,11 +12,11 @@ class StatutType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nom')
+            ->add('nom') //ajout champs pour nom
         ;
     }
 
-    public function configureOptions(OptionsResolver $resolver): void
+    public function configureOptions(OptionsResolver $resolver): void //option par defaut
     {
         $resolver->setDefaults([
             'data_class' => Statut::class,

@@ -39,9 +39,6 @@ class Ticket
     
     public function __construct()
     {
-        // Définir un statut par défaut (par exemple, "Nouveau").
-        // Cette méthode nécessite que l'objet Statut correspondant soit injecté ou configuré dans le contrôleur.
-        // Par défaut, l'attribut `Statut` est null, pour le cas où l'objet ne peut pas être assigné ici.
         $this->statut = new Statut('Nouveau');
     }
     

@@ -18,14 +18,14 @@ class UserFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        // Créer un administrateur
+        //créer un admin
         $admin = new User();
         $admin->setEmail('admin@example.com');
         $admin->setRoles(['ROLE_ADMIN']);
         $admin->setPassword($this->passwordHasher->hashPassword($admin, 'adminpass'));
         $manager->persist($admin);
 
-        // Créer un membre du staff
+        //créer un staff
         $staff = new User();
         $staff->setEmail('staff@example.com');
         $staff->setRoles(['ROLE_STAFF']);

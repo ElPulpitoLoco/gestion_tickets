@@ -17,7 +17,7 @@ class Responsable
     #[ORM\Column(type: 'string', length: 255)]
     private ?string $nom = null;
 
-    // Getters et setters
+    //getters et setters:
     public function getId(): ?int
     {
         return $this->id;

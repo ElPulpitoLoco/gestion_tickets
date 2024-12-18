@@ -1,42 +1,42 @@
+#page d'accueil:
 homepage:
     path: /
     controller: App\Controller\HomeController::index
 
-
+#les controllers:
 controllers:
     resource:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
 
+#le login:
 security_login:
     path: /security/login
     controller: App\Controller\SecurityController::login
     methods: [GET, POST]
     
-
+#les 2 dashboards:
 admin_dashboard:
     path: /admin/dashboard
     controller: App\Controller\AdminController::dashboard
-
 
 staff_dashboard:
     path: /staff/dashboard
     controller: App\Controller\StaffController::dashboard
     methods: GET 
     
-    
+#categories:
 categorie_index:
     path: /categories
     controller: App\Controller\CategorieController::index
 
+#statuts:
 statut_index:
     path: /statuts
     controller: App\Controller\StatutController::index
 
-
-
-
+#responsables:
 responsable_index:
     path: /responsables
     controller: App\Controller\ResponsableController::index

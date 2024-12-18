@@ -10,7 +10,7 @@ class CategorieFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-        $categories = ['Incident', 'Panne', 'Évolution', 'Anomalie', 'Information'];
+        $categories = ['Incident', 'Panne', 'Évolution', 'Anomalie', 'Information']; //liste cat demander
 
         foreach ($categories as $nom) {
             $categorie = new Categorie();

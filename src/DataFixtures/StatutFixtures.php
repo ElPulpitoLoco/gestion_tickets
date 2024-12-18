@@ -10,7 +10,7 @@ class StatutFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-        $statuts = ['Nouveau', 'Ouvert', 'Résolu', 'Fermé'];
+        $statuts = ['Nouveau', 'Ouvert', 'Résolu', 'Fermé']; //les statuts voulus
 
         foreach ($statuts as $nom) {
             $statut = new Statut();

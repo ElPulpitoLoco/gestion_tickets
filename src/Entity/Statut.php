@@ -67,7 +67,7 @@ class Statut
     public function removeTicket(Ticket $ticket): static
     {
         if ($this->tickets->removeElement($ticket)) {
-            // set the owning side to null (unless already changed)
+
             if ($ticket->getStatut() === $this) {
                 $ticket->setStatut(null);
             }
@@ -77,8 +77,8 @@ class Statut
     }
     
      /**
-     * Méthode __toString() pour Twig
-     * Retourne le champ "nom" pour les affichages textuels
+     *méthode __toString() pour Twig
+     *retourne le champ "nom" pour les affichages text
      */
     public function __toString(): string
     {

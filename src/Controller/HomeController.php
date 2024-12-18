@@ -11,9 +11,8 @@ class HomeController extends AbstractController
     #[Route('/', name: 'home')]
     public function index(): Response
     {
-         // Passer des paramètres au template si nécessaire
         return $this->render('home/index.html.twig', [
-            'controller_name' => 'HomeController', // Paramètre à transmettre au template
+            'controller_name' => 'HomeController', //para à transmettre au template
         ]);
     }
 

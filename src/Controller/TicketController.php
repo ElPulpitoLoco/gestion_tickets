@@ -1,9 +1,9 @@
 <?php
-// src/Controller/TicketController.php
+
 namespace App\Controller;
 
 use App\Entity\Ticket;
-use App\Entity\Statut; // Importer l'entité Statut
+use App\Entity\Statut;
 use App\Form\TicketType;
 use App\Repository\TicketRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -15,9 +15,8 @@ use Symfony\Component\Routing\Annotation\Route;
 class TicketController extends AbstractController
 {
     #[Route('/ticket', name: 'ticket_index')]
-    public function index(TicketRepository $ticketRepository): Response
+    public function index(TicketRepository $ticketRepository): Response //affiche la liste des tickets
     {
-        // Afficher la liste des tickets
         $tickets = $ticketRepository->findAll();
         return $this->render('ticket/index.html.twig', [
             'tickets' => $tickets,
@@ -25,22 +24,21 @@ class TicketController extends AbstractController
     }
 
     #[Route('/ticket/new', name: 'ticket_new')]
-    public function new(Request $request, EntityManagerInterface $em): Response
+    public function new(Request $request, EntityManagerInterface $em): Response //créer un nouveau ticket
     {
-        // Créer un nouveau ticket
         $ticket = new Ticket();
 
-        // Valeurs par défaut pour les visiteurs
+        //valeurs par defaut pour les simples visiteurs
         if (!$this->isGranted('ROLE_USER')) {
-            $ticket->setDateOuverture(new \DateTime()); // Date d'ouverture par défaut
+            $ticket->setDateOuverture(new \DateTime()); // date ouverture par defaut
 
-            // Récupérer le statut par défaut "Nouveau"
+            //recup le statut par défaut "Nouveau"
             $defaultStatut = $em->getRepository(Statut::class)->findOneBy(['nom' => 'Nouveau']);
             if (!$defaultStatut) {
                 throw new \Exception("Le statut par défaut 'Nouveau' n'existe pas !");
             }
-            $ticket->setStatut($defaultStatut); // Définir le statut par défaut
-            $ticket->setResponsable(null);     // Pas de responsable pour les visiteurs
+            $ticket->setStatut($defaultStatut); //défini le statut par défaut
+            $ticket->setResponsable(null);     //pas de responsable pour les visiteurs
         }
 
         $form = $this->createForm(TicketType::class, $ticket);
@@ -50,10 +48,10 @@ class TicketController extends AbstractController
             $em->persist($ticket);
             $em->flush();
 
-            // Rediriger les visiteurs vers une page de confirmation ou d'accueil
+            //redirige les visiteurs vers mess de confirmation -> accueil
             if (!$this->isGranted('ROLE_USER')) {
                 $this->addFlash('success', 'Votre ticket a été soumis avec succès. Nous vous remercions.');
-                return $this->redirectToRoute('home'); // Remplacez 'home' par le nom de votre route d'accueil
+                return $this->redirectToRoute('home');
             }
 
             return $this->redirectToRoute('ticket_index');
@@ -67,7 +65,7 @@ class TicketController extends AbstractController
     #[Route('/ticket/{id}', name: 'ticket_show')]
     public function show(Ticket $ticket): Response
     {
-        // Afficher un ticket spécifique
+        //afficher un ticket
         return $this->render('ticket/show.html.twig', [
             'ticket' => $ticket,
         ]);
@@ -76,7 +74,7 @@ class TicketController extends AbstractController
     #[Route('/ticket/{id}/edit', name: 'ticket_edit')]
     public function edit(Request $request, Ticket $ticket, EntityManagerInterface $em): Response
     {
-        // Modifier un ticket
+        //modif ticket
         $form = $this->createForm(TicketType::class, $ticket);
         $form->handleRequest($request);
 
@@ -95,7 +93,7 @@ class TicketController extends AbstractController
     #[Route('/ticket/{id}/delete', name: 'ticket_delete')]
     public function delete(Ticket $ticket, EntityManagerInterface $em): Response
     {
-        // Supprimer un ticket
+        //suppr un ticket
         $em->remove($ticket);
         $em->flush();
 

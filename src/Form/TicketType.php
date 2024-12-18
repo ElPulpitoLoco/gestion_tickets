@@ -12,16 +12,16 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bundle\SecurityBundle\Security;
 
 
-class TicketType extends AbstractType
+class TicketType extends AbstractType //cree ou modif ticket
 {
-    private Security $security;
+    private Security $security; //service de secu pour les roles
 
     public function __construct(Security $security)
     {
         $this->security = $security;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options): void
+    public function buildForm(FormBuilderInterface $builder, array $options): void //les champs du form
     {
         $builder
             ->add('email')
@@ -33,7 +33,7 @@ class TicketType extends AbstractType
                 'placeholder' => 'Choisissez une catégorie',
             ]);
 
-        // Ajout conditionnel des champs supplémentaires
+        //ajout conditionnel des champs suppl
         if ($this->security->isGranted('ROLE_USER')) {
             $builder
                 ->add('dateOuverture', null, [
@@ -51,7 +51,7 @@ class TicketType extends AbstractType
         }
     }
 
-        public function configureOptions(OptionsResolver $resolver): void
+        public function configureOptions(OptionsResolver $resolver): void //option par defaut
         {
             $resolver->setDefaults([
                 'data_class' => Ticket::class,
